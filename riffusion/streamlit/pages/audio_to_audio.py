@@ -112,6 +112,22 @@ def render_audio_to_audio() -> None:
         help="Interpolate between two prompts, seeds, or denoising values along the"
         "duration of the segment",
     )
+    
+    use_20k = st.checkbox("Use 20kHz", value=False)
+
+    if use_20k:
+        params = SpectrogramParams(
+            min_frequency=10,
+            max_frequency=20000,
+            sample_rate=44100,
+            stereo=True,
+        )
+    else:
+        params = SpectrogramParams(
+            min_frequency=0,
+            max_frequency=10000,
+            stereo=False,
+        )
 
     counter = streamlit_util.StreamlitCounter()
 
